@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 import requests
 
 
-def _get_pdf_urls(url):
+def get_pdf_urls(url):
     page = requests.get(url)
     data = page.text
     soup = BeautifulSoup(data, features="html.parser")
@@ -18,21 +18,21 @@ def _get_pdf_urls(url):
     return pdf_urls
 
 
-def _validate_pdf_url(pdf_url):
+def validate_pdf_url(pdf_url):
     if not isinstance(pdf_url, str):
         raise TypeError("Expected a url string.")
     if not pdf_url.endswith(".pdf"):
         raise ValueError("Expected link to a pdf file.")
 
 
-def _get_pdf_name(pdf_url):
-    _validate_pdf_url(pdf_url)
+def get_pdf_name(pdf_url):
+    validate_pdf_url(pdf_url)
     return pdf_url.split("/")[-1]
 
 
-def _download_file(pdf_url, folder_path):
-    _validate_pdf_url(pdf_url)
-    pdf_name = _get_pdf_name(pdf_url)
+def download_file(pdf_url, folder_path):
+    validate_pdf_url(pdf_url)
+    pdf_name = get_pdf_name(pdf_url)
     pdf_path = os.path.join(folder_path, pdf_name)
     pdf_already_downloaded = os.path.isfile(pdf_path)
 
@@ -49,7 +49,7 @@ def _download_file(pdf_url, folder_path):
 
 
 def download_pdf_files(url, folder_path):
-    pdf_urls = _get_pdf_urls(url)
+    pdf_urls = get_pdf_urls(url)
     for pdf_url in pdf_urls:
         print("downloading '{}'".format(pdf_url))
-        _download_file(pdf_url, folder_path)
+        download_file(pdf_url, folder_path)
