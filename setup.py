@@ -12,5 +12,8 @@ setup(
     long_description=open("README.md").read(),
 
     packages=find_packages(exclude=('tests',)),
-    install_requires=[],
+    install_requires=[
+        "requests>=2.22.0",
+        "beautifulsoup4>=4.8.1"
+    ],
 )
