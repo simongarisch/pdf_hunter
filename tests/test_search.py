@@ -1,6 +1,8 @@
 import os
 import pytest
 import pdf_hunter
+from unittest import mock
+
 
 TEST_URL = "https://github.com/EbookFoundation/free-programming-books/blob/master/free-programming-books.md"  # noqa: E501
 
@@ -45,4 +47,35 @@ def test_download_file():
 def test_download_file_warning():
     pdf_url = "this_will_404.pdf"
     folder_path = os.path.dirname(os.path.abspath(__file__))
-    pdf_hunter.download_file(pdf_url, folder_path)
+    with pytest.warns(UserWarning):
+        pdf_hunter.download_file(pdf_url, folder_path)
+
+
+def get_pdf_urls_test(*args):
+    return [
+        "https://people.gnome.org/~swilmet/glib-gtk-dev-platform.pdf",
+        "http://safehammad.com/downloads/python-idioms-2014-01-16.pdf",
+    ]
+
+@mock.patch("pdf_hunter.get_pdf_urls", side_effect=get_pdf_urls_test)
+def test_download_pdf_files(mock_func):
+    folder_path = os.path.dirname(os.path.abspath(__file__))
+
+    print(pdf_hunter)
+    print(dir(pdf_hunter))
+    print(mock_func)
+    #1/0
+    #return
+    def remove_test_pdfs():
+        for pdf_url in get_pdf_urls_test():
+            file_path = os.path.join(
+                folder_path, pdf_hunter.get_pdf_name(pdf_url)
+            )
+            if os.path.isfile(file_path):
+                os.remove(file_path)
+
+    remove_test_pdfs()
+    pdf_hunter.download_pdf_files(TEST_URL, folder_path)
+    assert os.path.isfile("glib-gtk-dev-platform.pdf")
+    assert os.path.isfile("python-idioms-2014-01-16.pdf")
+    remove_test_pdfs()
