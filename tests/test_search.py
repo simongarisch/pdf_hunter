@@ -57,15 +57,10 @@ def get_pdf_urls_test(*args):
         "http://safehammad.com/downloads/python-idioms-2014-01-16.pdf",
     ]
 
-@mock.patch("pdf_hunter.get_pdf_urls", side_effect=get_pdf_urls_test)
+@mock.patch("pdf_hunter.search.get_pdf_urls", side_effect=get_pdf_urls_test)
 def test_download_pdf_files(mock_func):
     folder_path = os.path.dirname(os.path.abspath(__file__))
 
-    print(pdf_hunter)
-    print(dir(pdf_hunter))
-    print(mock_func)
-    #1/0
-    #return
     def remove_test_pdfs():
         for pdf_url in get_pdf_urls_test():
             file_path = os.path.join(
@@ -76,6 +71,6 @@ def test_download_pdf_files(mock_func):
 
     remove_test_pdfs()
     pdf_hunter.download_pdf_files(TEST_URL, folder_path)
-    assert os.path.isfile("glib-gtk-dev-platform.pdf")
-    assert os.path.isfile("python-idioms-2014-01-16.pdf")
+    assert os.path.isfile(os.path.join(folder_path, "glib-gtk-dev-platform.pdf"))
+    assert os.path.isfile(os.path.join(folder_path, "python-idioms-2014-01-16.pdf"))
     remove_test_pdfs()
