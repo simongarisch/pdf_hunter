@@ -7,8 +7,10 @@ from .url_transforms import UrlTransforms
 
 if six.PY2:
     from urllib import urlopen
+    from urlparse import urljoin
 else:
     from urllib.request import urlopen
+    from urllib.parse import urljoin
 
 
 def get_pdf_urls(url):
@@ -20,7 +22,7 @@ def get_pdf_urls(url):
     for link in soup.find_all("a"):
         link_address = link.get("href")
         if link_address.endswith(".pdf"):
-            pdf_urls.append(link_address)
+            pdf_urls.append(urljoin(url, link_address))
     return pdf_urls
 
 
