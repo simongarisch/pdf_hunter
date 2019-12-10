@@ -1,0 +1,20 @@
+language: python
+
+python:
+  - "3.5"
+  - "3.6"
+  - "3.7"
+  - "3.8"
+
+install:
+  - python setup.py install
+  - pip install -r requirements-dev.txt
+  - pip install coveralls
+
+script:
+  - python -m pytest
+  - flake8 pdf_hunter
+  - flake8 tests
+
+after_success:
+  - coveralls
