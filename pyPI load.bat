@@ -1,5 +1,5 @@
-rem call activate py27
-call activate py36
+call activate py27
+rem call activate py36
 
 rem make sure we are up to date
 python -m pip install --user --upgrade setuptools wheel

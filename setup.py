@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="pdf_hunter",
-    version="0.1.4",
+    version="0.1.5",
     author="Simon Garisch",
     author_email="gatman946@gmail.com",
     description="Download PDF links from a webpage",
