@@ -35,7 +35,7 @@ def get_pdf_name(pdf_url):
     return pdf_url.split("/")[-1]
 
 
-def download_file(pdf_url, folder_path):
+def download_file(pdf_url, folder_path=os.getcwd()):
     validate_pdf_url(pdf_url)
     pdf_name = get_pdf_name(pdf_url)
     pdf_path = os.path.join(folder_path, pdf_name)
@@ -53,7 +53,7 @@ def download_file(pdf_url, folder_path):
         warnings.warn(msg)
 
 
-def download_pdf_files(url, folder_path):
+def download_pdf_files(url, folder_path=os.getcwd()):
     pdf_urls = get_pdf_urls(url)
     for pdf_url in pdf_urls:
         print("downloading '{}'".format(pdf_url))
