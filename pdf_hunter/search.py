@@ -3,6 +3,7 @@ import warnings
 import six
 from bs4 import BeautifulSoup
 import requests
+from .url_transforms import UrlTransforms
 
 if six.PY2:
     from urllib import urlopen
@@ -37,6 +38,7 @@ def get_pdf_name(pdf_url):
 
 def download_file(pdf_url, folder_path=os.getcwd()):
     validate_pdf_url(pdf_url)
+    pdf_url = UrlTransforms.apply(pdf_url)
     pdf_name = get_pdf_name(pdf_url)
     pdf_path = os.path.join(folder_path, pdf_name)
     pdf_already_downloaded = os.path.isfile(pdf_path)

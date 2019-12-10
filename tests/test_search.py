@@ -12,6 +12,16 @@ else:
 TEST_URL = "https://github.com/EbookFoundation/free-programming-books/blob/master/free-programming-books.md"  # noqa: E501
 
 
+def test_url_transforms():
+    pdf_url = "https://github.com/.../blob/master/....pdf"
+    new_url = pdf_hunter.UrlTransforms.apply(pdf_url)
+    assert new_url == "https://github.com/.../raw/master/....pdf"
+
+    pdf_url = "https://this_will_not_change.pdf"
+    new_url = pdf_hunter.UrlTransforms.apply(pdf_url)
+    assert new_url == "https://this_will_not_change.pdf"
+
+
 def test_get_pdf_urls():
     pdf_urls = pdf_hunter.get_pdf_urls(TEST_URL)
     assert isinstance(pdf_urls, list)
