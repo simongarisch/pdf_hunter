@@ -1,7 +1,12 @@
 import os
+import six
 import pytest
 import pdf_hunter
-from unittest import mock
+
+if six.PY2:
+    import mock
+else:
+    from unittest import mock
 
 
 TEST_URL = "https://github.com/EbookFoundation/free-programming-books/blob/master/free-programming-books.md"  # noqa: E501
@@ -72,10 +77,10 @@ def test_download_pdf_files(mock_func):
 
     remove_test_pdfs()
     pdf_hunter.download_pdf_files(TEST_URL, folder_path)
-    assert os.path.isfile(os.path.join(
-        folder_path, "glib-gtk-dev-platform.pdf")
+    assert os.path.isfile(
+        os.path.join(folder_path, "glib-gtk-dev-platform.pdf")
     )
-    assert os.path.isfile(os.path.join(
-        folder_path, "python-idioms-2014-01-16.pdf")
+    assert os.path.isfile(
+        os.path.join(folder_path, "python-idioms-2014-01-16.pdf")
     )
     remove_test_pdfs()

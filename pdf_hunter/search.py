@@ -1,8 +1,13 @@
 import os
 import warnings
-from urllib.request import urlopen
+import six
 from bs4 import BeautifulSoup
 import requests
+
+if six.PY2:
+    from urllib import urlopen
+else:
+    from urllib.request import urlopen
 
 
 def get_pdf_urls(url):
@@ -37,7 +42,7 @@ def download_file(pdf_url, folder_path):
     pdf_already_downloaded = os.path.isfile(pdf_path)
 
     if pdf_already_downloaded:
-        return
+        return  # pragma: no cover
 
     try:
         response = urlopen(pdf_url)

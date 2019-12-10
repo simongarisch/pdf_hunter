@@ -1,5 +1,5 @@
 -r requirements.txt
-black==19.10b0
+black; python_version > '3'
 coverage==4.5.4
 flake8==3.7.9
 pylint==2.4.4
