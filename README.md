@@ -4,8 +4,6 @@ Search for and download PDF file links from a webpage.
 
 ## Installation
 
-This has been tested using Python 3 and Python 2.7.
-
 ```bash
 pip install pdf_hunter
 ```

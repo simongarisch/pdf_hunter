@@ -1,15 +1,10 @@
 import os
-import six
 import pytest
 import pdf_hunter
-
-if six.PY2:
-    import mock
-else:
-    from unittest import mock
+from unittest import mock
 
 
-TEST_URL = "https://github.com/EbookFoundation/free-programming-books/blob/master/free-programming-books.md"  # noqa: E501
+TEST_URL = "https://github.com/EbookFoundation/free-programming-books/blob/main/books/free-programming-books-langs.md"  # noqa: E501
 
 
 def test_url_transforms():
@@ -48,7 +43,7 @@ def remove_file(file_path):
 
 
 def test_download_file():
-    pdf_url = "https://people.gnome.org/~swilmet/glib-gtk-dev-platform.pdf"
+    pdf_url = "https://www.cs.uni.edu/~mccormic/4740/guide-c2ada.pdf"
     folder_path = os.path.dirname(os.path.abspath(__file__))
     file_name = pdf_hunter.get_pdf_name(pdf_url)
     file_path = os.path.join(folder_path, file_name)
@@ -68,8 +63,8 @@ def test_download_file_warning():
 
 def get_pdf_urls_test(*args):
     return [
-        "https://people.gnome.org/~swilmet/glib-gtk-dev-platform.pdf",
-        "http://safehammad.com/downloads/python-idioms-2014-01-16.pdf",
+        "https://www.cs.uni.edu/~mccormic/4740/guide-c2ada.pdf",
+        "https://www.robmiles.com/s/CSharp-Book-2019-Refresh.pdf",
     ]
 
 
@@ -88,9 +83,9 @@ def test_download_pdf_files(mock_func):
     remove_test_pdfs()
     pdf_hunter.download_pdf_files(TEST_URL, folder_path)
     assert os.path.isfile(
-        os.path.join(folder_path, "glib-gtk-dev-platform.pdf")
+        os.path.join(folder_path, "guide-c2ada.pdf")
     )
     assert os.path.isfile(
-        os.path.join(folder_path, "python-idioms-2014-01-16.pdf")
+        os.path.join(folder_path, "CSharp-Book-2019-Refresh.pdf")
     )
     remove_test_pdfs()

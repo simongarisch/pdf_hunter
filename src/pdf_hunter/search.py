@@ -1,16 +1,10 @@
 import os
 import warnings
-import six
 from bs4 import BeautifulSoup
 import requests
 from .url_transforms import UrlTransforms
-
-if six.PY2:
-    from urllib import urlopen
-    from urlparse import urljoin
-else:
-    from urllib.request import urlopen
-    from urllib.parse import urljoin
+from urllib.request import urlopen
+from urllib.parse import urljoin
 
 
 def get_pdf_urls(url):
@@ -21,6 +15,8 @@ def get_pdf_urls(url):
     pdf_urls = []
     for link in soup.find_all("a"):
         link_address = link.get("href")
+        if link_address is None:
+            continue
         if link_address.endswith(".pdf"):
             pdf_urls.append(urljoin(url, link_address))
     return pdf_urls
