@@ -23,6 +23,7 @@ build-backend = "uv_build"
 dev = [
     "coverage>=7.15.3",
     "jupyter>=1.1.1",
+    "poethepoet>=0.48.0",
     "pytest>=9.1.1",
     "pytest-cov>=7.1.0",
     "ruff>=0.16.1",
@@ -32,3 +33,9 @@ dev = [
 testpaths = ["tests"]
 python_files = ["test_*.py", "*_test.py"]
 python_functions = ["test_*"]
+
+[tool.poe.tasks]
+format = "ruff format ."
+lint = "ruff check --fix ."
+test = "pytest --cov=. --cov-report=html --cov-report=term"
+check = ["format", "lint", "test"]

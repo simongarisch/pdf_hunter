@@ -1,10 +1,11 @@
 import os
-import pytest
-import pdf_hunter
 from unittest import mock
 
+import pytest
 
-TEST_URL = "https://github.com/EbookFoundation/free-programming-books/blob/main/books/free-programming-books-langs.md"  # noqa: E501
+import pdf_hunter
+
+TEST_URL = "https://github.com/EbookFoundation/free-programming-books/blob/main/books/free-programming-books-langs.md"
 
 
 def test_url_transforms():
@@ -55,7 +56,7 @@ def test_download_file():
 
 
 def test_download_file_warning():
-    pdf_url = "this_will_404.pdf"
+    pdf_url = "https://this_will_404.pdf"
     folder_path = os.path.dirname(os.path.abspath(__file__))
     with pytest.warns(UserWarning):
         pdf_hunter.download_file(pdf_url, folder_path)
@@ -74,18 +75,12 @@ def test_download_pdf_files(mock_func):
 
     def remove_test_pdfs():
         for pdf_url in get_pdf_urls_test():
-            file_path = os.path.join(
-                folder_path, pdf_hunter.get_pdf_name(pdf_url)
-            )
+            file_path = os.path.join(folder_path, pdf_hunter.get_pdf_name(pdf_url))
             if os.path.isfile(file_path):
                 os.remove(file_path)
 
     remove_test_pdfs()
     pdf_hunter.download_pdf_files(TEST_URL, folder_path)
-    assert os.path.isfile(
-        os.path.join(folder_path, "guide-c2ada.pdf")
-    )
-    assert os.path.isfile(
-        os.path.join(folder_path, "CSharp-Book-2019-Refresh.pdf")
-    )
+    assert os.path.isfile(os.path.join(folder_path, "guide-c2ada.pdf"))
+    assert os.path.isfile(os.path.join(folder_path, "CSharp-Book-2019-Refresh.pdf"))
     remove_test_pdfs()
