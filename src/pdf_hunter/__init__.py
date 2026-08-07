@@ -1,3 +1,4 @@
+from .cli import main  # noqa: F401
 from .search import (  # noqa: F401
     download_file,
     download_pdf_files,
