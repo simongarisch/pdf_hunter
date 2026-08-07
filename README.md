@@ -13,23 +13,18 @@ pip install pdf_hunter
 ```python
 import pdf_hunter
 
-url = "https://github.com/EbookFoundation/free-programming-books/blob/master/free-programming-books.md"
+url = "https://github.com/EbookFoundation/free-programming-books/blob/main/books/free-programming-books-langs.md"
 ```
 
 ```python
 pdf_urls = pdf_hunter.get_pdf_urls(url)
-pdf_urls[:10]
+pdf_urls[:3]
 ```
-['https://people.gnome.org/~swilmet/glib-gtk-dev-platform.pdf',
- 'https://www.math.upenn.edu/~wilf/AlgoComp.pdf',
- 'http://cslibrary.stanford.edu/110/BinaryTrees.pdf',
- 'http://www-inst.eecs.berkeley.edu/~cs61b/fa14/book2/data-structures.pdf',
- 'http://lib.mdp.ac.id/ebook/Karya%20Umum/Dsa.pdf',
- 'http://cslibrary.stanford.edu/103/LinkedListBasics.pdf',
- 'http://cslibrary.stanford.edu/105/LinkedListProblems.pdf',
- 'http://www.jjj.de/fxt/fxtbook.pdf',
- 'http://www.cs.cmu.edu/~rwh/theses/okasaki.pdf',
- 'http://igm.univ-mlv.fr/~mac/REC/text-algorithms.pdf']
+[
+ 'https://www.cs.uni.edu/~mccormic/4740/guide-c2ada.pdf',
+ 'http://www.adapower.com/pdfs/AdaDistilled07-27-2003.pdf',
+ 'https://www.adacore.com/uploads/books/pdf/Ada_for_the_C_or_Java_Developer-cc.pdf'
+]
 
 ## We can download a single PDF file from a given url
 
@@ -38,14 +33,14 @@ pdf_url = pdf_urls[0]
 pdf_url
 ```
 
-'https://people.gnome.org/~swilmet/glib-gtk-dev-platform.pdf'
+'https://www.cs.uni.edu/~mccormic/4740/guide-c2ada.pdf'
 
 ```python
 file_name = pdf_hunter.get_pdf_name(pdf_url)
 file_name
 ```
 
-'glib-gtk-dev-platform.pdf'
+'guide-c2ada.pdf'
 
 ```python
 import os
